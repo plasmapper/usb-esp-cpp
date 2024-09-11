@@ -1,6 +1,8 @@
 #include "pl_usb_device_cdc.h"
 #include "esp_check.h"
 
+#if CONFIG_TINYUSB_CDC_ENABLED
+
 //==============================================================================
 
 static const char* TAG = "pl_usb_device_cdc";
@@ -182,3 +184,5 @@ esp_err_t UsbDeviceCdc::SetReadTimeout(TickType_t timeout) {
 //==============================================================================
 
 }
+
+#endif

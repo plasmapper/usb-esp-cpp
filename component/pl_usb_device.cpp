@@ -1,6 +1,8 @@
 #include "pl_usb_device.h"
 #include "esp_check.h"
 
+#if defined(CONFIG_IDF_TARGET_ESP32P4) || defined(CONFIG_IDF_TARGET_ESP32S2) || defined(CONFIG_IDF_TARGET_ESP32S3)
+
 //==============================================================================
 
 static const char* TAG = "pl_usb_device";
@@ -56,3 +58,5 @@ esp_err_t UsbDevice::Initialize() {
 //==============================================================================
 
 }
+
+#endif
