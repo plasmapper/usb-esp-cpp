@@ -17,7 +17,7 @@ public:
   /// @brief Default hardware interface name
   static const std::string defaultName;
   /// @brief Default operation timeout in FreeRTOS ticks
-  static const TickType_t defaultReadTimeout = 300 / portTICK_PERIOD_MS;
+  static constexpr TickType_t defaultReadTimeout = 300 / portTICK_PERIOD_MS;
 
   /// @brief Creates a USB device CDC endpoint
   /// @param usbDevice USB device
