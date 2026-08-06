@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Lock timeout handling.
 - Static const members to constexpr.
 
+### Fixed
+- Missing vTaskDelay in UsbDeviceCdc::Read.
+
 ## [1.0.3] - 2025-04-29
 ### Fixed
 - Setting serial number to MAC address if not specified in menuconfig.

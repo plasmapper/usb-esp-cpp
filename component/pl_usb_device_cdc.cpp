@@ -116,6 +116,9 @@ esp_err_t UsbDeviceCdc::Read(void* dest, size_t size) {
     if (size == 0)
       return ESP_OK;
 
+    if (rxSize == 0)
+      vTaskDelay(1);
+
   } while(xTaskCheckForTimeOut(&xTimeOut, &readTimeout) == pdFALSE);
 
   ESP_RETURN_ON_ERROR(ESP_ERR_TIMEOUT, TAG, "timeout");
