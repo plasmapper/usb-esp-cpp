@@ -8,9 +8,9 @@
 
 static const char* TAG = "pl_usb_device";
 
-char macString[13] = ""; 
+static char macString[13] = "";
 
-const char *string_descriptor[] = {
+static const char* string_descriptor[] = {
   (char[]){0x09, 0x04},                    // 0: is supported language is English (0x0409)
   CONFIG_TINYUSB_DESC_MANUFACTURER_STRING, // 1: Manufacturer
   CONFIG_TINYUSB_DESC_PRODUCT_STRING,      // 2: Product
