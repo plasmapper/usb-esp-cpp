@@ -134,7 +134,7 @@ esp_err_t UsbDeviceCdc::Write(const void* src, size_t size) {
     return ESP_OK;
   ESP_RETURN_ON_FALSE(src, ESP_ERR_INVALID_ARG, TAG, "src is null");
 
-  uint8_t bufferFullEvents = 0, maxBufferFullEvents = 5;
+  uint8_t bufferFullEvents = 0;
   while (size) {
     size_t txSize = tinyusb_cdcacm_write_queue(port, (uint8_t*)src, size);
     tinyusb_cdcacm_write_flush(port, 0);
@@ -143,7 +143,7 @@ esp_err_t UsbDeviceCdc::Write(const void* src, size_t size) {
 
     if (txSize == 0) {
       bufferFullEvents++;
-      if (bufferFullEvents >= maxBufferFullEvents) {
+      if (bufferFullEvents >= maxWriteBufferFullEvents) {
         ESP_RETURN_ON_ERROR(ESP_FAIL, TAG, "USB CDC write failed");
       }
       vTaskDelay(1);

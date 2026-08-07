@@ -4,13 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.4] - 2026-08-07
 ### Added
 - Test suite.
 
 ### Changed
 - Lock timeout handling.
 - Static const members to constexpr.
+- UsbDeviceCdc::Write buffer-full retry limit into a named constant.
 
 ### Fixed
 - Missing vTaskDelay in UsbDeviceCdc::Read.

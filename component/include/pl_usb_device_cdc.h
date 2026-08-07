@@ -46,6 +46,8 @@ public:
   esp_err_t SetReadTimeout(TickType_t timeout) override;
 
 private:
+  static constexpr uint8_t maxWriteBufferFullEvents = 10;
+
   Mutex mutex;
   bool enabled = false;
   std::shared_ptr<UsbDevice> usbDevice;
