@@ -35,7 +35,7 @@ private:
   Mutex mutex;
   bool initialized = false;
   tinyusb_usbdev_t device;
-  int vBusMonitorPin = vBusMonitorPin;
+  int vBusMonitorPin;
 };
 
 //==============================================================================

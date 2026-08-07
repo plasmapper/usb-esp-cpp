@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Missing vTaskDelay in UsbDeviceCdc::Read.
+- Self-referencing UsbDevice::vBusMonitorPin default member initializer.
 
 ## [1.0.3] - 2025-04-29
 ### Fixed
