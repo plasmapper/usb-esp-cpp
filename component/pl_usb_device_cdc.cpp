@@ -134,24 +134,25 @@ esp_err_t UsbDeviceCdc::Write(const void* src, size_t size) {
     return ESP_OK;
   ESP_RETURN_ON_FALSE(src, ESP_ERR_INVALID_ARG, TAG, "src is null");
 
-  uint8_t bufferFullEvents = 0;
-  while (size) {
-    size_t txSize = tinyusb_cdcacm_write_queue(port, (uint8_t*)src, size);
-    tinyusb_cdcacm_write_flush(port, 0);
+  TimeOut_t xTimeOut;
+  vTaskSetTimeOutState(&xTimeOut);
+
+  size_t txSize;
+  do {
+    txSize = tinyusb_cdcacm_write_queue(port, (uint8_t*)src, size);
+    ESP_RETURN_ON_FALSE(tinyusb_cdcacm_write_flush(port, 0) != ESP_FAIL, ESP_FAIL, TAG, "USB CDC write failed");
     size -= txSize;
     src = (uint8_t*)src + txSize;
 
-    if (txSize == 0) {
-      bufferFullEvents++;
-      if (bufferFullEvents >= maxWriteBufferFullEvents) {
-        ESP_RETURN_ON_ERROR(ESP_FAIL, TAG, "USB CDC write failed");
-      }
-      vTaskDelay(1);
-    }
-    else
-      bufferFullEvents = 0;
-  }
+    if (size == 0)
+      return ESP_OK;
 
+    if (txSize == 0)
+      vTaskDelay(1);
+
+  } while(xTaskCheckForTimeOut(&xTimeOut, &writeTimeout) == pdFALSE);
+
+  ESP_RETURN_ON_ERROR(ESP_ERR_TIMEOUT, TAG, "timeout");
   return ESP_OK;
 }
 
@@ -183,6 +184,21 @@ TickType_t UsbDeviceCdc::GetReadTimeout() {
 esp_err_t UsbDeviceCdc::SetReadTimeout(TickType_t timeout) {
   LockGuard lg(*this);
   readTimeout = timeout;
+  return ESP_OK;
+}
+
+//==============================================================================
+
+TickType_t UsbDeviceCdc::GetWriteTimeout() {
+  LockGuard lg(*this);
+  return writeTimeout;
+}
+
+//==============================================================================
+
+esp_err_t UsbDeviceCdc::SetWriteTimeout(TickType_t timeout) {
+  LockGuard lg(*this);
+  writeTimeout = timeout;
   return ESP_OK;
 }
 

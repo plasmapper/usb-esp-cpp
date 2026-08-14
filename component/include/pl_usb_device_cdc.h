@@ -16,8 +16,10 @@ class UsbDeviceCdc : public HardwareInterface, public Stream {
 public:
   /// @brief Default hardware interface name
   static const std::string defaultName;
-  /// @brief Default operation timeout in FreeRTOS ticks
+  /// @brief Default read operation timeout in FreeRTOS ticks
   static constexpr TickType_t defaultReadTimeout = 300 / portTICK_PERIOD_MS;
+  /// @brief Default write operation timeout in FreeRTOS ticks
+  static constexpr TickType_t defaultWriteTimeout = 300 / portTICK_PERIOD_MS;
 
   /// @brief Creates a USB device CDC endpoint
   /// @param usbDevice USB device
@@ -45,14 +47,16 @@ public:
   TickType_t GetReadTimeout() override;
   esp_err_t SetReadTimeout(TickType_t timeout) override;
 
-private:
-  static constexpr uint8_t maxWriteBufferFullEvents = 10;
+  TickType_t GetWriteTimeout() override;
+  esp_err_t SetWriteTimeout(TickType_t timeout) override;
 
+private:
   Mutex mutex;
   bool enabled = false;
   std::shared_ptr<UsbDevice> usbDevice;
   tinyusb_cdcacm_itf_t port;
   TickType_t readTimeout = defaultReadTimeout;
+  TickType_t writeTimeout = defaultWriteTimeout;
 };
 
 //==============================================================================

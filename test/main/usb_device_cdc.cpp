@@ -3,7 +3,8 @@
 
 //==============================================================================
 
-const TickType_t timeout = 500 / portTICK_PERIOD_MS;
+const TickType_t readTimeout = 500 / portTICK_PERIOD_MS;
+const TickType_t writeTimeout = 600 / portTICK_PERIOD_MS;
 const uint8_t dataToSend[] = {1, 2, 3, 4, 5};
 
 //==============================================================================
@@ -13,6 +14,7 @@ void TestUsbDeviceCdc() {
   PL::UsbDeviceCdc usbDeviceCdc(usbDevice, TINYUSB_CDC_ACM_0);
   TEST_ASSERT(usbDeviceCdc.GetName() == PL::UsbDeviceCdc::defaultName);
   TEST_ASSERT_EQUAL(PL::UsbDeviceCdc::defaultReadTimeout, usbDeviceCdc.GetReadTimeout());
+  TEST_ASSERT_EQUAL(PL::UsbDeviceCdc::defaultWriteTimeout, usbDeviceCdc.GetWriteTimeout());
 
   uint8_t receivedData[sizeof(dataToSend)];
 
@@ -25,8 +27,11 @@ void TestUsbDeviceCdc() {
 
   TEST_ASSERT(usbDeviceCdc.Initialize() == ESP_OK);
 
-  TEST_ASSERT(usbDeviceCdc.SetReadTimeout(timeout) == ESP_OK);
-  TEST_ASSERT_EQUAL(timeout, usbDeviceCdc.GetReadTimeout());
+  TEST_ASSERT(usbDeviceCdc.SetReadTimeout(readTimeout) == ESP_OK);
+  TEST_ASSERT_EQUAL(readTimeout, usbDeviceCdc.GetReadTimeout());
+
+  TEST_ASSERT(usbDeviceCdc.SetWriteTimeout(writeTimeout) == ESP_OK);
+  TEST_ASSERT_EQUAL(writeTimeout, usbDeviceCdc.GetWriteTimeout());
 
   TEST_ASSERT(usbDeviceCdc.Enable() == ESP_OK);
   TEST_ASSERT(usbDeviceCdc.IsEnabled());
