@@ -76,7 +76,7 @@ esp_err_t UsbDevice::Initialize() {
   // Set serial number to MAC address if not specified in menuconfig
   if (string_descriptor[3][0] == 0) {
     uint8_t mac[6];
-    esp_read_mac(mac, ESP_MAC_WIFI_STA);
+    ESP_RETURN_ON_ERROR(esp_read_mac(mac, ESP_MAC_WIFI_STA), TAG, "read MAC failed");
     sprintf(macString, "%02X%02X%02X%02X%02X%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
     string_descriptor[3] = macString;
   }
