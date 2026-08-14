@@ -97,6 +97,7 @@ esp_err_t UsbDeviceCdc::Read(void* dest, size_t size) {
   
   TimeOut_t xTimeOut;
   vTaskSetTimeOutState(&xTimeOut);
+  TickType_t remainingTimeout = readTimeout;
 
   size_t rxSize;
   do {
@@ -119,7 +120,7 @@ esp_err_t UsbDeviceCdc::Read(void* dest, size_t size) {
     if (rxSize == 0)
       vTaskDelay(1);
 
-  } while(xTaskCheckForTimeOut(&xTimeOut, &readTimeout) == pdFALSE);
+  } while(xTaskCheckForTimeOut(&xTimeOut, &remainingTimeout) == pdFALSE);
 
   ESP_RETURN_ON_ERROR(ESP_ERR_TIMEOUT, TAG, "timeout");
   return ESP_OK;
@@ -136,6 +137,7 @@ esp_err_t UsbDeviceCdc::Write(const void* src, size_t size) {
 
   TimeOut_t xTimeOut;
   vTaskSetTimeOutState(&xTimeOut);
+  TickType_t remainingTimeout = writeTimeout;
 
   size_t txSize;
   do {
@@ -150,7 +152,7 @@ esp_err_t UsbDeviceCdc::Write(const void* src, size_t size) {
     if (txSize == 0)
       vTaskDelay(1);
 
-  } while(xTaskCheckForTimeOut(&xTimeOut, &writeTimeout) == pdFALSE);
+  } while(xTaskCheckForTimeOut(&xTimeOut, &remainingTimeout) == pdFALSE);
 
   ESP_RETURN_ON_ERROR(ESP_ERR_TIMEOUT, TAG, "timeout");
   return ESP_OK;
