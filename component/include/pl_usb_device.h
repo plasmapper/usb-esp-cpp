@@ -12,7 +12,7 @@ namespace PL {
 //==============================================================================
 
 /// @brief USB device class
-class UsbDevice : Lockable {
+class UsbDevice : public Lockable {
   friend class UsbDeviceCdc;
 
 public:
