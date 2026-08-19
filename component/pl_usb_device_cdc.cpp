@@ -142,7 +142,8 @@ esp_err_t UsbDeviceCdc::Write(const void* src, size_t size) {
   size_t txSize;
   do {
     txSize = tinyusb_cdcacm_write_queue(port, (uint8_t*)src, size);
-    ESP_RETURN_ON_FALSE(tinyusb_cdcacm_write_flush(port, 0) != ESP_FAIL, ESP_FAIL, TAG, "USB CDC write failed");
+    esp_err_t error = tinyusb_cdcacm_write_flush(port, 0);
+    ESP_RETURN_ON_FALSE(error == ESP_OK || error == ESP_ERR_NOT_FINISHED, error, TAG, "USB CDC write failed");
     size -= txSize;
     src = (uint8_t*)src + txSize;
 
