@@ -4,7 +4,7 @@
 //==============================================================================
 
 void TestUsbDevice() {
-  PL::UsbDevice usbDevice(TINYUSB_USBDEV_0);
+  PL::UsbDevice usbDevice;
 
   TEST_ASSERT(usbDevice.Initialize() == ESP_OK);
 }

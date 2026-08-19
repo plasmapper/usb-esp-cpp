@@ -3,7 +3,7 @@
 //==============================================================================
 
 extern "C" void app_main(void) {
-  auto usbDevice = std::make_shared<PL::UsbDevice>(TINYUSB_USBDEV_0);
+  auto usbDevice = std::make_shared<PL::UsbDevice>();
   PL::UsbDeviceCdc usbDeviceCdc(usbDevice, TINYUSB_CDC_ACM_0);
   
   usbDeviceCdc.Initialize();

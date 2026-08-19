@@ -17,13 +17,12 @@ class UsbDevice : Lockable {
 
 public:
   /// @brief Creates a USB device
-  /// @param device USB device
   /// @param vbusMonitorPin GPIO that is connected to VBUS monitor circuit
-  UsbDevice(tinyusb_usbdev_t device, int vBusMonitorPin = -1);
+  UsbDevice(int vBusMonitorPin = -1);
   ~UsbDevice();
   UsbDevice(const UsbDevice&) = delete;
   UsbDevice& operator=(const UsbDevice&) = delete;
-  
+
   esp_err_t Lock(TickType_t timeout = portMAX_DELAY) override;
   esp_err_t Unlock() override;
 
@@ -34,7 +33,6 @@ public:
 private:
   Mutex mutex;
   bool initialized = false;
-  tinyusb_usbdev_t device;
   int vBusMonitorPin;
 };
 

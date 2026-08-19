@@ -10,7 +10,7 @@ const uint8_t dataToSend[] = {1, 2, 3, 4, 5};
 //==============================================================================
 
 void TestUsbDeviceCdc() {
-  auto usbDevice = std::make_shared<PL::UsbDevice>(TINYUSB_USBDEV_0);
+  auto usbDevice = std::make_shared<PL::UsbDevice>();
   PL::UsbDeviceCdc usbDeviceCdc(usbDevice, TINYUSB_CDC_ACM_0);
   TEST_ASSERT(usbDeviceCdc.GetName() == PL::UsbDeviceCdc::defaultName);
   TEST_ASSERT_EQUAL(PL::UsbDeviceCdc::defaultReadTimeout, usbDeviceCdc.GetReadTimeout());

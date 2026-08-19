@@ -3,7 +3,7 @@
 
 #if CONFIG_TINYUSB_CDC_ENABLED
 
-#include "tusb_cdc_acm.h"
+#include "tinyusb_cdc_acm.h"
 
 //==============================================================================
 

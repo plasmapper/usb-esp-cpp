@@ -25,8 +25,8 @@ UsbDeviceCdc::UsbDeviceCdc(std::shared_ptr<UsbDevice> usbDevice, tinyusb_cdcacm_
 //==============================================================================
 
 UsbDeviceCdc::~UsbDeviceCdc() {
-  if (tusb_cdc_acm_initialized(port))
-    tusb_cdc_acm_deinit(port);
+  if (tinyusb_cdcacm_initialized(port))
+    tinyusb_cdcacm_deinit(port);
 }
 
 //==============================================================================
@@ -53,11 +53,10 @@ esp_err_t UsbDeviceCdc::Initialize() {
     ESP_RETURN_ON_ERROR(usbDevice->Initialize(), TAG, "USB device initialize failed");
   }
 
-  if (!tusb_cdc_acm_initialized(port)) {
+  if (!tinyusb_cdcacm_initialized(port)) {
     tinyusb_config_cdcacm_t config = {};
-    config.usb_dev = usbDevice->device;
     config.cdc_port = port;
-    ESP_RETURN_ON_ERROR(tusb_cdc_acm_init(&config), TAG, "USB CDC init failed");
+    ESP_RETURN_ON_ERROR(tinyusb_cdcacm_init(&config), TAG, "USB CDC init failed");
   }
   return ESP_OK;
 }
@@ -66,7 +65,7 @@ esp_err_t UsbDeviceCdc::Initialize() {
 
 esp_err_t UsbDeviceCdc::Enable() {
   LockGuard lg(*this);
-  ESP_RETURN_ON_FALSE(tusb_cdc_acm_initialized(port), ESP_ERR_INVALID_STATE, TAG, "USB CDC is not initialized");
+  ESP_RETURN_ON_FALSE(tinyusb_cdcacm_initialized(port), ESP_ERR_INVALID_STATE, TAG, "USB CDC is not initialized");
   if (enabled)
     return ESP_OK;
   enabled = true; 
@@ -79,7 +78,7 @@ esp_err_t UsbDeviceCdc::Enable() {
 
 esp_err_t UsbDeviceCdc::Disable() {
   LockGuard lg(*this);
-  ESP_RETURN_ON_FALSE(tusb_cdc_acm_initialized(port), ESP_ERR_INVALID_STATE, TAG, "USB CDC is not initialized");
+  ESP_RETURN_ON_FALSE(tinyusb_cdcacm_initialized(port), ESP_ERR_INVALID_STATE, TAG, "USB CDC is not initialized");
   if (!enabled)
     return ESP_OK;
   enabled = false;

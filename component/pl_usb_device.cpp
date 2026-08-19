@@ -1,6 +1,7 @@
 #include "pl_usb_device.h"
 #include "esp_check.h"
 #include "esp_mac.h"
+#include "tinyusb_default_config.h"
 
 #if defined(CONFIG_IDF_TARGET_ESP32P4) || defined(CONFIG_IDF_TARGET_ESP32S2) || defined(CONFIG_IDF_TARGET_ESP32S3)
 
@@ -41,7 +42,7 @@ namespace PL {
 
 //==============================================================================
 
-UsbDevice::UsbDevice(tinyusb_usbdev_t device, int vBusMonitorPin) : device(device), vBusMonitorPin(vBusMonitorPin) { }
+UsbDevice::UsbDevice(int vBusMonitorPin) : vBusMonitorPin(vBusMonitorPin) { }
 
 //==============================================================================
 
@@ -81,10 +82,13 @@ esp_err_t UsbDevice::Initialize() {
     string_descriptor[3] = macString;
   }
       
-  tinyusb_config_t config = {};
-  config.string_descriptor = string_descriptor;
-  config.self_powered = vBusMonitorPin >= 0;
-  config.vbus_monitor_io = vBusMonitorPin;
+  tinyusb_config_t config = TINYUSB_DEFAULT_CONFIG();
+  config.descriptor.string = string_descriptor;
+  // string_descriptor is NULL-terminated (see its declaration above); string_count excludes that
+  // trailing NULL entry.
+  config.descriptor.string_count = sizeof(string_descriptor) / sizeof(string_descriptor[0]) - 1;
+  config.phy.self_powered = vBusMonitorPin >= 0;
+  config.phy.vbus_monitor_io = vBusMonitorPin;
   ESP_RETURN_ON_ERROR(tinyusb_driver_install(&config), TAG, "driver install failed");
   initialized = true;
   return ESP_OK;

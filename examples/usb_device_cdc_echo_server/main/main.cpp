@@ -13,7 +13,7 @@ protected:
 //==============================================================================
 
 extern "C" void app_main(void) {
-  auto usbDevice = std::make_shared<PL::UsbDevice>(TINYUSB_USBDEV_0);
+  auto usbDevice = std::make_shared<PL::UsbDevice>();
   auto usbDeviceCdc = std::make_shared<PL::UsbDeviceCdc>(usbDevice, TINYUSB_CDC_ACM_0);
   
   usbDeviceCdc->Initialize();
