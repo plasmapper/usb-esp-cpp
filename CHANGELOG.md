@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Write flush error check.
+- Discard read performance when discarding data one byte at a time.
 
 ## [1.2.1] - 2026-08-14
 ### Fixed

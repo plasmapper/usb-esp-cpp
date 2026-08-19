@@ -106,11 +106,10 @@ esp_err_t UsbDeviceCdc::Read(void* dest, size_t size) {
       dest = (uint8_t*)dest + rxSize;
     }
     else {
-      uint8_t data;
-      do {
-        ESP_RETURN_ON_ERROR(tinyusb_cdcacm_read(port, &data, 1, &rxSize), TAG, "USB CDC read failed");
-        size -= rxSize;
-      } while(size && rxSize);
+      constexpr size_t discardBufferSize = 64;
+      uint8_t discardBuffer[discardBufferSize];
+      ESP_RETURN_ON_ERROR(tinyusb_cdcacm_read(port, discardBuffer, std::min(size, discardBufferSize), &rxSize), TAG, "USB CDC read failed");
+      size -= rxSize;
     }
 
     if (size == 0)

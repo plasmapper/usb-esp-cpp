@@ -84,8 +84,6 @@ esp_err_t UsbDevice::Initialize() {
       
   tinyusb_config_t config = TINYUSB_DEFAULT_CONFIG();
   config.descriptor.string = string_descriptor;
-  // string_descriptor is NULL-terminated (see its declaration above); string_count excludes that
-  // trailing NULL entry.
   config.descriptor.string_count = sizeof(string_descriptor) / sizeof(string_descriptor[0]) - 1;
   config.phy.self_powered = vBusMonitorPin >= 0;
   config.phy.vbus_monitor_io = vBusMonitorPin;
