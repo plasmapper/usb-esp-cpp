@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.0.0] - 2026-08-19
 ### Changed
 - Upgraded esp_tinyusb dependency to 2.2.1 (breaking change: UsbDevice's constructor no longer takes a tinyusb_usbdev_t device argument, which no longer exists in esp_tinyusb 2.x).
 
@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Write flush error check.
 - Discard read performance when discarding data one byte at a time.
 - UsbDevice privately inheriting Lockable, inconsistent with the rest of the pack.
+- sprintf used instead of snprintf for the MAC-derived serial string.
 
 ## [1.2.1] - 2026-08-14
 ### Fixed

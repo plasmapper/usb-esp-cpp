@@ -78,7 +78,7 @@ esp_err_t UsbDevice::Initialize() {
   if (string_descriptor[3][0] == 0) {
     uint8_t mac[6];
     ESP_RETURN_ON_ERROR(esp_read_mac(mac, ESP_MAC_WIFI_STA), TAG, "read MAC failed");
-    sprintf(macString, "%02X%02X%02X%02X%02X%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+    snprintf(macString, sizeof(macString), "%02X%02X%02X%02X%02X%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
     string_descriptor[3] = macString;
   }
       

@@ -5,7 +5,7 @@ USB Component
 
 .. |ESP_IDF_VERSION| replace:: 5.3
    
-.. |VERSION| replace:: 1.2.1
+.. |VERSION| replace:: 2.0.0
 
 .. include:: ../../../installation.rst
 
@@ -31,8 +31,8 @@ Class method thread safety is implemented by having the :cpp:class:`PL::Lockable
 
 Examples
 --------
-| `USB device CDC <https://components.espressif.com/components/plasmapper/pl_usb/versions/1.2.1/examples/usb_device_cdc>`_
-| `USB device CDC echo server <https://components.espressif.com/components/plasmapper/pl_usb/versions/1.2.1/examples/usb_device_cdc_echo_server>`_
+| `USB device CDC <https://components.espressif.com/components/plasmapper/pl_usb/versions/2.0.0/examples/usb_device_cdc>`_
+| `USB device CDC echo server <https://components.espressif.com/components/plasmapper/pl_usb/versions/2.0.0/examples/usb_device_cdc_echo_server>`_
 
 API reference
 -------------
