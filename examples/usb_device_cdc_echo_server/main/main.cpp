@@ -5,6 +5,7 @@
 class UsbDeviceCdcEchoServer : public PL::StreamServer {
 public:
   using PL::StreamServer::StreamServer;
+  ~UsbDeviceCdcEchoServer();
 
 protected:
   esp_err_t HandleRequest(PL::Stream& stream) override;
@@ -25,6 +26,12 @@ extern "C" void app_main(void) {
   while (1) {
     vTaskDelay(1);
   }
+}
+
+//==============================================================================
+
+UsbDeviceCdcEchoServer::~UsbDeviceCdcEchoServer() {
+  StopTask();
 }
 
 //==============================================================================
