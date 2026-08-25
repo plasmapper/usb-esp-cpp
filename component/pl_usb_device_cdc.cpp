@@ -25,8 +25,10 @@ UsbDeviceCdc::UsbDeviceCdc(std::shared_ptr<UsbDevice> usbDevice, tinyusb_cdcacm_
 //==============================================================================
 
 UsbDeviceCdc::~UsbDeviceCdc() {
-  if (tinyusb_cdcacm_initialized(port))
+  if (tinyusb_cdcacm_initialized(port)) {
+    Disable();
     tinyusb_cdcacm_deinit(port);
+  }
 }
 
 //==============================================================================
