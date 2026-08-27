@@ -13,10 +13,6 @@ namespace PL {
 
 //==============================================================================
 
-const std::string UsbDeviceCdc::defaultName = "USB CDC";
-
-//==============================================================================
-
 UsbDeviceCdc::UsbDeviceCdc(std::shared_ptr<UsbDevice> usbDevice, tinyusb_cdcacm_itf_t port) :
     usbDevice(usbDevice), port(port) {
   SetName(defaultName);

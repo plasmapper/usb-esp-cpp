@@ -15,7 +15,7 @@ namespace PL {
 class UsbDeviceCdc : public HardwareInterface, public Stream {
 public:
   /// @brief Default hardware interface name
-  static const std::string defaultName;
+  static constexpr const char* defaultName = "USB CDC";
   /// @brief Default read operation timeout in FreeRTOS ticks
   static constexpr TickType_t defaultReadTimeout = 300 / portTICK_PERIOD_MS;
   /// @brief Default write operation timeout in FreeRTOS ticks
@@ -24,7 +24,6 @@ public:
   /// @brief Creates a USB device CDC endpoint
   /// @param usbDevice USB device
   /// @param port CDC port
-  /// @param rxBufferSize RX buffer size
   UsbDeviceCdc(std::shared_ptr<UsbDevice> usbDevice, tinyusb_cdcacm_itf_t port);
   ~UsbDeviceCdc();
   UsbDeviceCdc(const UsbDeviceCdc&) = delete;

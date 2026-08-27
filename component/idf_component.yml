@@ -1,4 +1,4 @@
-version: "2.0.2"
+version: "2.0.3"
 license: "MIT"
 description: USB C++ class component for ESP-IDF
 url: https://github.com/plasmapper/usb-esp-cpp
