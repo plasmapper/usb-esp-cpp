@@ -5,4 +5,4 @@ url: https://github.com/plasmapper/usb-esp-cpp
 dependencies:
   idf: ">=5.3,<7.0"
   esp_tinyusb: "^2.2.1"
-  plasmapper/pl_common: "^2.1.1"
+  plasmapper/pl_common: "^2.2.0"
